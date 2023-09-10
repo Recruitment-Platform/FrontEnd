@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import GlobalStyle from '../src/styles/GlobalStyle';
+import GlobalStyle from './styles/GlobalStyle';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Test from '@pages/test';
 
