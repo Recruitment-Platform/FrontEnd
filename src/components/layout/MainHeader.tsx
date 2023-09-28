@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
-import SearchBar from '@components/layout/SearchBar';
 
 interface MainHeaderProps {
   backgroundColor?: string; // 헤더 배경화면 색
@@ -18,7 +17,6 @@ function MainHeader({
         <HeaderBox>
           <Nav />
         </HeaderBox>
-        <SearchBar />
       </MainHeaderContainer>
     </>
   );
