@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { ReactComponent as Logo } from '@assets/icons/socketLogo.svg';
 import { ReactComponent as Vector } from '@assets/icons/vector.svg';
 import { ReactComponent as HamburgerBar } from '@assets/icons/hamburgerbar-icon.svg';
+import { ReactComponent as NoticeIcon } from '@assets/icons/notice-icon.svg';
+import { ReactComponent as NoticeNewIcon } from '@assets/icons/notice-new-icon.svg';
 
 function Nav() {
   const [loginState, setLoginState] = useState(true); // 로그인 여부 - 테스트용
@@ -24,8 +26,8 @@ function Nav() {
         {loginState ? (
           <MyInfo>
             <Notice>
-              <img src="/icons/notice-icon.svg" />
-              <img src="/icons/notice-new-icon.svg" />
+              <NoticeIcon />
+              <NoticeNewIcon />
             </Notice>
             <Profile
               src="/images/default-profile.jpg"
@@ -144,7 +146,7 @@ const Notice = styled.div`
   position: relative;
   cursor: pointer;
 
-  & > img:nth-child(2) {
+  & > svg:nth-child(2) {
     position: absolute;
     right: 0;
   }
