@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SearchIcon } from '../assets/images/searchIcon.svg';
-import { ReactComponent as FilterIcon } from '../assets/images/filterIcon.svg';
+import { ReactComponent as SearchIcon } from '@assets/icons/search-icon.svg';
+import { ReactComponent as FilterIcon } from '@assets/icons/filter-icon.svg';
 
 function SearchBar() {
   return (
