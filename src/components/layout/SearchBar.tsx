@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SearchIcon } from '@assets/icons/search-icon.svg';
 import { ReactComponent as FilterIcon } from '@assets/icons/filter-icon.svg';
+import { ReactComponent as SearchIcon } from '@assets/icons/search-icon.svg';
 
 function SearchBar() {
   return (
@@ -21,12 +21,21 @@ function SearchBar() {
 
 export default SearchBar;
 
-const Icon = styled.svg`
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  margin: 18px 0px 0px -240px;
-  z-index: 2;
+const Icon = styled.div`
+  svg {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: 18px 0px 0px -240px;
+    z-index: 2;
+  }
+  @media screen and (max-width: 768px) {
+    svg {
+      margin: 27px 0px 0px -130px;
+      width: 17px;
+      height: 17px;
+    }
+  }
 `;
 const Input = styled.div`
   justify-content: space-between;
@@ -46,6 +55,18 @@ const Input = styled.div`
   input::placeholder {
     color: #e6e6e6;
   }
+  @media screen and (max-width: 768px) {
+    input {
+      width: 305px;
+      height: 50px;
+      margin-top: 10px;
+      padding-left: 60px;
+      font-size: 15px;
+    }
+    input::placeholder {
+      font-size: 15px;
+    }
+  }
 `;
 const Filter = styled.div`
   svg {
@@ -54,5 +75,12 @@ const Filter = styled.div`
     height: 30px;
     margin: 18px 0px 0px 210px;
     z-index: 2;
+  }
+  @media screen and (max-width: 768px) {
+    svg {
+      margin: 28px 0px 0px 120px;
+      width: 17px;
+      height: 17px;
+    }
   }
 `;
