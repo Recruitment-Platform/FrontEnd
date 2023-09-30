@@ -112,6 +112,8 @@ const MainContentContainer = styled.div`
   padding:; 0 20px;
   @media screen and (max-width: 768px) {
     padding-top: 19px;
+    margin: 10px 10px;
+
   }
 `;
 
@@ -122,6 +124,7 @@ const Title = styled.div`
   text-align: center;
   align-items: center;
   p {
+    margin-left: 0;
     font-family: Noto Sans KR;
     font-size: 20px;
     font-weight: 700;
@@ -131,6 +134,14 @@ const Title = styled.div`
   }
   @media screen and (max-width: 768px) {
     justify-content: flex-start;
+    p {
+      font-family: Noto Sans KR;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 23px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
   }
 `;
 
