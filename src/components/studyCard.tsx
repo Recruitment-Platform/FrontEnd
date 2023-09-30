@@ -10,14 +10,7 @@ interface StudyCardProps {
   tags: string[]; // 태그
 }
 
-// 아직 실제로 값이 있는 게 아니기 때문에 임시로 작성
-function StudyCard({
-  date = '2023.08.28',
-  mode = '온라인',
-  title = '함께하는 프로그래밍 스터디 그룹을 만듭니다!',
-  content = '저희는 함께 공부하고 서로 발전하는 프로그래밍 스터디 그룹을 찾고있습니다. 함께 공부하며 지식을 공유하고, 프로젝트를 개발하며 실력을 키우고자 합니다. 같이 열심히 노력하고 성장하고 싶으신 분들을 모집합니다!',
-  tags = ['JavaScript', 'HTML', 'CSS', 'Front-end'],
-}: StudyCardProps) {
+function StudyCard({ date, mode, title, content, tags }: StudyCardProps) {
   return (
     <StudyCardLayout>
       <DateAndMode>
@@ -40,6 +33,7 @@ function StudyCard({
 const StudyCardLayout = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 10px; /*추가한 코드*/
   align-items: flex-start;
   width: 500px;
   /* height: 280px; */
@@ -48,6 +42,10 @@ const StudyCardLayout = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.05);
   padding: 35px;
+  @media screen and (max-width: 768px) {
+    width: 340px;
+    max-heigh: 215px;
+  }
 `;
 
 const DateAndMode = styled.div`
@@ -64,6 +62,9 @@ const Date = styled.span`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const Mode = styled.span`
@@ -94,6 +95,9 @@ const Title = styled.h3`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const Content = styled.p`
@@ -104,6 +108,9 @@ const Content = styled.p`
   font-weight: 400;
   line-height: normal;
   text-align: left;
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const Tags = styled.div`
