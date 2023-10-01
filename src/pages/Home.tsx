@@ -30,7 +30,7 @@ const DUMMYDATA = [
   },
 ];
 
-function MainContent() {
+function Home() {
   const navigate = useNavigate();
   function clickNewpost() {
     navigate(`/`); //임시로 page 경로 설정
@@ -72,7 +72,7 @@ function MainContent() {
     </>
   );
 }
-export default MainContent;
+export default Home;
 
 const Chat = styled.div`
   right: 0;
