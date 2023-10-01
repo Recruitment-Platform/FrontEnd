@@ -43,10 +43,10 @@ function MainContent() {
         <SearchBar />
       </MainHeaderContainer>
       <MainContentContainer>
-        <Title>
-          <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
-        </Title>
         <PostList>
+          <Title>
+            <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
+          </Title>
           {DUMMYDATA.map((post: any) => {
             return (
               <StudyCard
@@ -81,7 +81,8 @@ const Chat = styled.div`
 `;
 
 const MainHeaderContainer = styled.div`
-  max-width: 1440px;
+  /*max-width: 1440px;*/
+  width: 100%;
   height: 250px;
   background-color: rgba(242, 244, 255, 1);
 `;
@@ -91,7 +92,7 @@ const Icon = styled.li`
   align-items: center;
   flex-direction: column;
   gap: 30px;
-  top: 70%;
+  bottom: 10%;
   left: 93%;
   @media screen and (max-width: 768px) {
     left: 86%;
@@ -99,38 +100,44 @@ const Icon = styled.li`
 `;
 
 const PostList = styled.div`
-  grid-gap: 27px;
+  gap: 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px 10px;
 `;
 
 const MainContentContainer = styled.div`
-  max-width: 1440px;
-  max-height: 774px;
-  margin : 30px 50px;
+  /*max-width: 1440px;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width:100%;
+  height:auto;/*코드 수정*/
   padding:; 0 20px;
   @media screen and (max-width: 768px) {
     padding-top: 19px;
     margin: 10px 10px;
-
   }
 `;
 
 const Title = styled.div`
-  width: 500px;
   display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
+  width: 100%;
   p {
     margin-left: 0;
+    margin-top: 40px;
     font-family: Noto Sans KR;
     font-size: 20px;
     font-weight: 700;
     line-height: 29px;
     letter-spacing: 0em;
     text-align: left;
+  }
+  @media screen and (min-width: 1084px) {
+    display: flex;
+    padding-right: 680px;
+    justify-content: center;
   }
   @media screen and (max-width: 768px) {
     justify-content: flex-start;
