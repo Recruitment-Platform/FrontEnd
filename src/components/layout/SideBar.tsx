@@ -7,13 +7,10 @@ interface SideBarProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 function SideBar({ isOpen, setIsOpen }: SideBarProps) {
-  const toggleSide = () => {
-    setIsOpen(false);
-  };
   return (
     <>
       {isOpen && (
-        <Layer onClick={toggleSide}>
+        <Layer>
           <ModalLayer>
             <MyInfoList>
               <ul>
@@ -89,6 +86,13 @@ const MyInfoList = styled.div`
       text-align: left;
       color: rgba(89, 87, 87, 1);
       padding-left: 10px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
+        background: #eeeeee;
+      }
       p: nth-child(1) {
         color: #222222;
         font-family: Noto Sans KR;

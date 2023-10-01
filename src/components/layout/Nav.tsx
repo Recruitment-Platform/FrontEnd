@@ -76,8 +76,8 @@ const NavbarLayout = styled.nav`
   align-items: center;
   width: 100%;
   height: 100%;
-  max-width: 1440px;
-  padding: 0 58px;
+  padding: 0px 60px;
+  /*max-width: 1440px; */ // 코드 수정
   position: relative;
 
   @media screen and (max-width: 768px) {
