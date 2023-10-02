@@ -77,7 +77,7 @@ const MyInfoList = styled.div`
   ul {
     li {
       cursor: pointer;
-      margin: 20px 0px;
+      padding: 10px 10px;
       font-family: Noto Sans KR;
       font-size: 16px;
       font-weight: 400;
@@ -133,7 +133,7 @@ const MyInfoList = styled.div`
       transition: all 0.3s ease-in;
       &:hover {
         background: #f4f4f4;
-        margin: 0 10px;
+        margin: 0px 5px;
       }
     }
   }
