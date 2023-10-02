@@ -42,61 +42,72 @@ function Home() {
         <MainHeader backgroundColor="#f2f4ff" shadow={false} />
         <SearchBar />
       </MainHeaderContainer>
-      <MainContentContainer>
-        <PostList>
-          <Title>
-            <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
-          </Title>
-          {DUMMYDATA.map((post: any) => {
-            return (
-              <StudyCard
-                key={post.key}
-                date={post.date}
-                mode={post.mode}
-                title={post.title}
-                content={post.content}
-                tags={post.tags}
-              />
-            );
-          })}
-        </PostList>
-        <More>+ 더보기</More>
-        <Icon>
-          <NewPostIcon onClick={clickNewpost} />
-          <ChatIcon />
-          <Chat>
-            <ChatNewIcon />
-          </Chat>
-        </Icon>
-      </MainContentContainer>
+      <Main>
+        <MainContentContainer>
+          <PostList>
+            <Title>
+              <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
+            </Title>
+            {DUMMYDATA.map((post: any) => {
+              return (
+                <StudyCard
+                  key={post.key}
+                  date={post.date}
+                  mode={post.mode}
+                  title={post.title}
+                  content={post.content}
+                  tags={post.tags}
+                />
+              );
+            })}
+          </PostList>
+          <More>+ 더보기</More>
+          <Icon>
+            <NewPostIcon onClick={clickNewpost} />
+            <Chat>
+              <NewChat>
+                <ChatNewIcon />
+              </NewChat>
+              <ChatIcon />
+            </Chat>
+          </Icon>
+        </MainContentContainer>
+      </Main>
     </>
   );
 }
 export default Home;
 
+const NewChat = styled.div`
+  position: absolute;
+  right: 5px;
+  top: -5px;
+`;
+const Main = styled.div``;
+
 const Chat = styled.div`
-  right: 0;
+  width: 60px;
+  height: 65px;
   top: 70px;
   position: absolute;
 `;
 
 const MainHeaderContainer = styled.div`
-  /*max-width: 1440px;*/
   width: 100%;
   height: 250px;
   background-color: rgba(242, 244, 255, 1);
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const Icon = styled.li`
   position: fixed;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 30px;
   bottom: 10%;
-  left: 93%;
-  @media screen and (max-width: 768px) {
-    left: 86%;
-  }
+  right: 5%;
+  height: 140px;
 `;
 
 const PostList = styled.div`
@@ -104,20 +115,21 @@ const PostList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 10px;
 `;
 
 const MainContentContainer = styled.div`
-  /*max-width: 1440px;*/
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  width:100%;
-  height:auto;/*코드 수정*/
-  padding:; 0 20px;
+  max-width: 1440px;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 0 20px;
+  margin: 0 auto;
   @media screen and (max-width: 768px) {
     padding-top: 19px;
-    margin: 10px 10px;
   }
 `;
 

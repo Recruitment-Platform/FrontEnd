@@ -44,7 +44,9 @@ const StudyCardLayout = styled.div`
   padding: 35px;
   @media screen and (max-width: 768px) {
     width: 340px;
-    max-heigh: 215px;
+  }
+  @media screen and (max-width: 390px) {
+    width: 250px;
   }
 `;
 
@@ -116,6 +118,7 @@ const Content = styled.p`
 const Tags = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
 `;
 
