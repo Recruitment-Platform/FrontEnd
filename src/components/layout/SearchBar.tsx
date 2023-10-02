@@ -31,7 +31,15 @@ const Icon = styled.div`
   }
   @media screen and (max-width: 768px) {
     svg {
-      margin: 27px 0px 0px -130px;
+      margin: 27px 0px 0px -120px;
+      width: 17px;
+      height: 17px;
+    }
+  }
+  //Galaxy-Fold
+  @media screen and (max-width: 320px) {
+    svg {
+      margin: 23px 0px 0px -90px;
       width: 17px;
       height: 17px;
     }
@@ -51,6 +59,7 @@ const Input = styled.div`
     border: 1px solid rgba(169, 169, 169, 1);
     color: black;
     padding-left: 80px;
+    padding-right: 80px;
   }
   input::placeholder {
     color: #e6e6e6;
@@ -61,10 +70,25 @@ const Input = styled.div`
       height: 50px;
       margin-top: 10px;
       padding-left: 60px;
+      padding-right: 60px;
       font-size: 15px;
     }
     input::placeholder {
       font-size: 15px;
+    }
+  }
+  //Galaxy-Fold
+  @media screen and (max-width: 320px) {
+    input {
+      width: 200px;
+      height: 40px;
+      margin-top: 10px;
+      padding-left: 60px;
+      font-size: 12px;
+      padding: 0px 40px;
+    }
+    input::placeholder {
+      font-size: 12px;
     }
   }
 `;
@@ -79,6 +103,14 @@ const Filter = styled.div`
   @media screen and (max-width: 768px) {
     svg {
       margin: 28px 0px 0px 120px;
+      width: 17px;
+      height: 17px;
+    }
+  }
+  //Galaxy-Fold
+  @media screen and (max-width: 320px) {
+    svg {
+      margin: 23px 0px 0px 70px;
       width: 17px;
       height: 17px;
     }
