@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import SideBar from '@components/layout/SideBar';
 import { ReactComponent as Logo } from '@assets/icons/socketLogo.svg';
 import { ReactComponent as Vector } from '@assets/icons/vector.svg';
 import { ReactComponent as HamburgerBar } from '@assets/icons/hamburgerbar-icon.svg';
 import { ReactComponent as NoticeIcon } from '@assets/icons/notice-icon.svg';
 import { ReactComponent as NoticeNewIcon } from '@assets/icons/notice-new-icon.svg';
-
 function Nav() {
   const [loginState, setLoginState] = useState(true); // 로그인 여부 - 테스트용
   const [myInfoVisible, setMyInfoVisible] = useState(false); // myInfo visible 상태
+
+  const [isOpen, setIsOpen] = useState(false); //햄버거 바 클릭에 따른 사이드 바 상태
 
   return (
     <NavbarLayout>
@@ -35,7 +37,14 @@ function Nav() {
                 setMyInfoVisible(!myInfoVisible);
               }}
             />
-            <HamburgerBarIcon />
+            <HamburgerBarIcon
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            />
+            {isOpen && loginState && (
+              <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
+            )}
           </MyInfo>
         ) : (
           <Button>로그인</Button>
@@ -67,8 +76,8 @@ const NavbarLayout = styled.nav`
   align-items: center;
   width: 100%;
   height: 100%;
-  max-width: 1440px;
-  padding: 0 58px;
+  padding: 0px 60px;
+  /*max-width: 1440px; */ // 코드 수정
   position: relative;
 
   @media screen and (max-width: 768px) {
