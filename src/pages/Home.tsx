@@ -4,10 +4,10 @@ import StudyCard from '@components/studyCard';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as NewPostIcon } from '@assets/icons/newpost-icon.svg';
 import { ReactComponent as ChatIcon } from '@assets/icons/chat-icon.svg';
-import { ReactComponent as ChatNewIcon } from '@assets/icons/chat-new-icon.svg';
+import { ReactComponent as UnreadCountIcon } from '@assets/icons/chat-new-icon.svg';
 import MainHeader from '@components/layout/MainHeader';
 import SearchBar from '@components/layout/SearchBar';
-
+import ChatList from '@components/layout/ChatList';
 /*임시로 설정한 데이터 */
 const DUMMYDATA = [
   {
@@ -32,8 +32,12 @@ const DUMMYDATA = [
 
 function Home() {
   const navigate = useNavigate();
+  const [isChatVisible, setChatVisible] = useState(false);
   function clickNewpost() {
     navigate(`/`); //임시로 page 경로 설정
+  }
+  function toggleChatHandler() {
+    setChatVisible(!isChatVisible);
   }
 
   return (
@@ -62,13 +66,14 @@ function Home() {
             })}
           </PostList>
           <More>+ 더보기</More>
+          {isChatVisible && <ChatList />}
           <Icon>
             <NewPostIcon onClick={clickNewpost} />
             <Chat>
-              <NewChat>
-                <ChatNewIcon />
-              </NewChat>
-              <ChatIcon />
+              <UnreadCount>
+                <UnreadCountIcon />
+              </UnreadCount>
+              <ChatIcon onClick={toggleChatHandler} />
             </Chat>
           </Icon>
         </MainContentContainer>
@@ -78,16 +83,14 @@ function Home() {
 }
 export default Home;
 
-const NewChat = styled.div`
-  position: absolute;
+const UnreadCount = styled.div`
   right: 5px;
+  position: absolute;
   top: -5px;
 `;
 const Main = styled.div``;
 
 const Chat = styled.div`
-  width: 60px;
-  height: 65px;
   top: 70px;
   position: absolute;
 `;
@@ -105,9 +108,8 @@ const Icon = styled.li`
   display: flex;
   align-items: center;
   flex-direction: column;
-  bottom: 10%;
+  bottom: 20%;
   right: 5%;
-  height: 140px;
 `;
 
 const PostList = styled.div`
