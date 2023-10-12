@@ -75,18 +75,16 @@ function ChatList() {
         <p>채팅목록</p>
       </ChatTitle>
       <ChatContainer>
-        {ChatItem.map((item: any) => {
-          return (
-            <ChatCard
-              key={item.key}
-              profile={item.profile}
-              sender={item.sender}
-              content={item.content}
-              sentTime={item.sentTime}
-              unreadCount={item.unreadCount}
-            />
-          );
-        })}
+        {ChatItem.map((item: any) => (
+          <ChatCard
+            key={item.key}
+            profile={item.profile}
+            sender={item.sender}
+            content={item.content}
+            sentTime={item.sentTime}
+            unreadCount={item.unreadCount}
+          />
+        ))}
       </ChatContainer>
     </ChatCardLayout>
   );
@@ -125,23 +123,19 @@ const ChatTitle = styled.div`
 
 const ChatContainer = styled.div`
   display: flex;
-  height: 350px;
+  height: 320px;
   width: 300px;
   padding-right: 10px;
   flex-direction: column;
-  /*gap: 20px;*/
-  overflow: scroll;
   overflow-y: auto;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 5px;
-    height: 20px;
+    height: auto;
   }
   &::-webkit-scrollbar-thumb {
     background: rgba(217, 217, 217, 1);
     border-radius: 15px;
     width: 5px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0);
   }
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ChatCardProps {
+  key: number;
   profile?: string;
   sender: string;
   content: string;
@@ -17,7 +18,7 @@ function ChatCard({
   unreadCount,
 }: ChatCardProps) {
   return (
-    <ChatContentContainer>
+    <ChatContentLayout>
       <Profile src={profile} />
       <SenderAndContent>
         <Sender>{sender}</Sender>
@@ -29,12 +30,13 @@ function ChatCard({
           <p>{unreadCount}</p>
         </Count>
       </TimeAndUnread>
-    </ChatContentContainer>
+    </ChatContentLayout>
   );
 }
+
 export default ChatCard;
 
-const ChatContentContainer = styled.div`
+const ChatContentLayout = styled.div`
   background: rgba(255, 255, 255, 1);
   width: 260px;
   height: 70px;
@@ -44,11 +46,14 @@ const ChatContentContainer = styled.div`
   gap: 10px;
   justify-content: center;
   align-items: center;
+  &: hover {
+    background: rgba(249, 249, 249, 1);
+  }
 `;
 const Profile = styled.img`
   width: 40px;
   height: 40px;
-  border-radius: 100px;
+  border-radius: 15px;
   background: #eeeeee;
 `;
 const SenderAndContent = styled.div`
@@ -102,10 +107,8 @@ const SentTime = styled.span`
   color: rgba(192, 192, 192, 1);
 `;
 const Count = styled.div`
-  margin-top: 10px;
+  margin-top: 5px;
   padding-left: 10px;
-  display: grid;
-  grid-template-columns: minmax(5px, max-content) 1fr;
   p {
     padding: 2px 5px;
     border-radius: 15px;
