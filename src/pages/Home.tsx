@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StudyCard from '@components/studyCard';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Vector } from '@assets/icons/vector.svg';
 import { ReactComponent as NewPostIcon } from '@assets/icons/newpost-icon.svg';
 import { ReactComponent as ChatIcon } from '@assets/icons/chat-icon.svg';
 import { ReactComponent as UnreadCountIcon } from '@assets/icons/chat-new-icon.svg';
@@ -42,16 +43,21 @@ function Home() {
 
   return (
     <>
-      <MainHeaderContainer>
-        <MainHeader backgroundColor="#f2f4ff" shadow={false} />
-        <SearchBar />
-      </MainHeaderContainer>
-      <Main>
-        <MainContentContainer>
+      <MainPageLayout>
+        <MainHeaderCol>
+          <MainHeader backgroundColor="#f2f4ff" shadow={false} />
+          <SearchBar />
+        </MainHeaderCol>
+        <MainContent>
+          <MainContentNav>
+            <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
+            <li>
+              <a>스터디</a>
+              <Vector />
+              <a>프로젝트</a>
+            </li>
+          </MainContentNav>
           <PostList>
-            <Title>
-              <p>🔥지금 가장 핫한 스터디 그룹을 만나보세요!</p>
-            </Title>
             {DUMMYDATA.map((post: any) => {
               return (
                 <StudyCard
@@ -65,44 +71,52 @@ function Home() {
               );
             })}
           </PostList>
-          <More>+ 더보기</More>
+          <MoreData>+ 더보기</MoreData>
           {isChatVisible && <ChatList />}
           <Icon>
             <NewPostIcon onClick={clickNewpost} />
-            <Chat>
+            <ChatBox>
               <UnreadCount>
                 <UnreadCountIcon />
               </UnreadCount>
               <ChatIcon onClick={toggleChatHandler} />
-            </Chat>
+            </ChatBox>
           </Icon>
-        </MainContentContainer>
-      </Main>
+        </MainContent>
+        <MainFooter>
+          <p>SOCKET 2023</p>
+          <p>
+            <span>Copyright</span> SOCKET. All rights reserved
+          </p>
+          <p>
+            <span>Contact</span> e-mail@gmail.com
+          </p>
+        </MainFooter>
+      </MainPageLayout>
     </>
   );
 }
 export default Home;
+
+const MainPageLayout = styled.div``;
 
 const UnreadCount = styled.div`
   right: 5px;
   position: absolute;
   top: -5px;
 `;
-const Main = styled.div``;
 
-const Chat = styled.div`
+const ChatBox = styled.div`
   top: 70px;
   position: absolute;
 `;
 
-const MainHeaderContainer = styled.div`
+const MainHeaderCol = styled.div`
   width: 100%;
   height: 250px;
   background-color: rgba(242, 244, 255, 1);
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
 `;
+
 const Icon = styled.li`
   position: fixed;
   display: flex;
@@ -119,54 +133,76 @@ const PostList = styled.div`
   justify-content: center;
 `;
 
-const MainContentContainer = styled.div`
+const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 1440px;
   align-items: center;
+  max-width: 1440px;
   width: 100%;
   height: auto;
   padding: 0 20px;
   margin: 0 auto;
   @media screen and (max-width: 768px) {
-    padding-top: 19px;
+    padding-top: 20px;
+    max-width: 700px;
   }
 `;
 
-const Title = styled.div`
+const MainContentNav = styled.div`
   display: flex;
   width: 100%;
-  p {
-    margin-left: 0;
-    margin-top: 40px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  max-width: 1040px;
+  justify-content: flex-start;
+  & > li {
+    display: none;
+  }
+  & > p {
+    padding-left: 10px;
     font-family: Noto Sans KR;
     font-size: 20px;
     font-weight: 700;
     line-height: 29px;
-    letter-spacing: 0em;
     text-align: left;
   }
-  @media screen and (min-width: 1084px) {
-    display: flex;
-    padding-right: 680px;
-    justify-content: center;
+  @media screen and (max-width: 1080px) {
+    max-width: 500px;
   }
   @media screen and (max-width: 768px) {
-    justify-content: flex-start;
-    p {
-      font-family: Noto Sans KR;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 23px;
-      letter-spacing: 0em;
-      text-align: left;
+    justify-content: flex-end;
+    margin-top: 0px;
+    max-width: 340px;
+    & > p {
+      display: none;
     }
+    & > li {
+      padding-right:30px;
+      display: flex;
+      gap: 10px;
+      margin-left:10px;
+        & > svg {
+          margin-top: 5px;
+        }
+        & > a {
+          font-family: Noto Sans KR;
+          color: rgba(89, 87, 87, 1);
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 19px;
+          letter-spacing: 0em;
+          text-align: center;         
+          & : hover {
+            font-weight: 700;
+            color: rgba(41, 102, 255, 1);
+            ck;   
+      }
   }
 `;
 
-const More = styled.button`
+const MoreData = styled.button`
   margin: 40px;
   background-color: transparent;
   color: rgba(138, 138, 138, 1);
@@ -179,5 +215,32 @@ const More = styled.button`
 
   &:hover {
     font-size: 16px;
+  }
+`;
+
+const MainFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 175px;
+  width: 100%;
+  background: rgba(249, 249, 249, 1);
+  & > p {
+    font-family: Noto Sans KR;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: rgba(119, 119, 119, 1);
+  }
+  & : first-child {
+    font-weight: 700;
+    padding-bottom: 20px;
+  }
+  &: ntn-child(n+2):ntn-child(-n + 3) {
+    & > span {
+      font-weight: 700;
+    }
   }
 `;
