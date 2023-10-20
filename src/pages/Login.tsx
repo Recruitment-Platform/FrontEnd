@@ -12,18 +12,18 @@ function Login() {
       <Main>
         <h1>반가워요👋</h1>
         <ButtonBox>
-          <button>
+          <a href={process.env.REACT_APP_KAKAO_AUTH_URL}>
             <KakaoIcon />
             카카오로 가입하기
-          </button>
-          <button>
+          </a>
+          <a href={process.env.REACT_APP_GOOGLE_AUTH_URL}>
             <GoogleIcon />
             구글로 가입하기
-          </button>
-          <button>
+          </a>
+          <a href={process.env.REACT_APP_Github_AUTH_URL}>
             <GithubIcon />
             깃허브로 가입하기
-          </button>
+          </a>
         </ButtonBox>
       </Main>
     </LoginLayout>
@@ -63,14 +63,22 @@ const ButtonBox = styled.div`
   max-width: 320px;
   gap: 15px;
 
-  & > button {
+  & > a {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
-    background: #fff;
+    background-color: #ffffff;
+    color: #313131;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
     border: 1px solid #e1e1e1;
     border-radius: 10px;
     gap: 6px;
