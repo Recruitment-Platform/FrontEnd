@@ -278,6 +278,7 @@ const TitleBox = styled.div`
 
 const Tags = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 
   & > button {
@@ -294,12 +295,16 @@ const Tags = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
   }
 `;
 
 const Contents = styled.div`
   padding: 22px 0;
-  /* background-color: aqua; */
   height: auto;
   & > pre {
     text-align: left;
@@ -313,6 +318,16 @@ const Contents = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    padding: 22px 17px;
+
+    & > pre {
+      font-size: 1.3rem;
+    }
   }
 `;
 
@@ -341,9 +356,8 @@ const CommentSection = styled.div`
     background: #ffffff;
     padding: 14px 20px;
     color: #000000;
-
     font-family: Noto Sans KR;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -356,6 +370,18 @@ const CommentSection = styled.div`
     }
     &::-webkit-input-placeholder {
       color: #a9a9a9;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    & > h3 {
+      font-size: 1.4rem;
+      padding: 13px 0 13px 8px;
+    }
+
+    input {
+      font-size: 1.3rem;
+      padding: 11px 16px;
     }
   }
 `;
@@ -390,6 +416,15 @@ const Comment = styled.div`
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 13px 6px;
+
+    & > p {
+      font-size: 1.6rem;
+      padding: 8px 0 12px 0;
+    }
   }
 `;
 
@@ -430,19 +465,39 @@ const Comment_Profile = styled.div`
       line-height: normal;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    gap: 9px;
+
+    & > img {
+      width: 40px;
+      height: 40px;
+    }
+
+    & > div {
+      & > p:first-child {
+        font-size: 1.3rem;
+      }
+      & > p:last-child {
+        font-size: 1.1rem;
+      }
+    }
+  }
 `;
 
 const ReplySection = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  /* justify-content: flex-end; */
-  /* width: 95%; */
   padding-left: 30px;
   border-bottom: 1px solid #e1e1e1;
 
   & > svg {
     margin-top: 15px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-left: 20px;
   }
 `;
 
@@ -478,6 +533,7 @@ const ProfileBox = styled.div`
   border: 1px solid #e1e1e1;
   background: #fff;
   margin-bottom: 17px;
+  /* flex-wrap: wrap; */
 
   & > div:nth-child(1) {
     display: flex;
@@ -497,8 +553,15 @@ const ProfileBox = styled.div`
 // 모바일 버전일 경우에 프로필 visible 상태
 const ProfileBox_Mobile = styled(ProfileBox)`
   display: none;
+
   @media screen and (max-width: 1100px) {
     display: flex;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 17px;
+    margin-right: 17px;
+    padding: 14px 29px;
   }
 `;
 
@@ -508,6 +571,7 @@ const NicknameBox = styled.div`
   align-items: center;
   gap: 7px;
   padding-bottom: 14px;
+
   & > img {
     width: 30px;
     height: 30px;
@@ -521,10 +585,22 @@ const NicknameBox = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    word-break: break-all;
   }
 
   @media screen and (max-width: 1100px) {
     padding-bottom: 7px;
+  }
+
+  @media screen and (max-width: 768px) {
+    & > img {
+      width: 21px;
+      height: 21px;
+    }
+
+    & > p {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -534,6 +610,8 @@ const IntroductionBox = styled.div`
   gap: 6px;
   align-items: flex-start;
   padding-bottom: 25px;
+
+  // 자기소개
   & > p:nth-child(1) {
     color: #313131;
     font-family: Noto Sans KR;
@@ -543,6 +621,7 @@ const IntroductionBox = styled.div`
     line-height: normal;
     text-align: left;
   }
+  // 깃허브 주소
   & > p:nth-child(2) {
     color: #acacac;
     font-family: Noto Sans KR;
@@ -551,10 +630,24 @@ const IntroductionBox = styled.div`
     font-weight: 400;
     line-height: normal;
     text-decoration-line: underline;
+    text-align: left;
+    word-break: break-all;
+    padding-bottom: 5px;
   }
 
   @media screen and (max-width: 1100px) {
     padding-bottom: 0px;
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 3px;
+
+    & > p:nth-child(1) {
+      font-size: 1rem;
+    }
+    & > p:nth-child(2) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -562,6 +655,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
+  padding-left: 10px;
 
   & > button {
     display: flex;
@@ -588,7 +682,7 @@ const Menu = styled.div`
     }
   }
 
-  & > svg {
+  svg {
     width: 16px;
     height: 16px;
   }
@@ -598,6 +692,24 @@ const Menu = styled.div`
     gap: 7px;
     & > button:nth-child(1) {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    & > button {
+      width: 60px;
+      height: 25px;
+      font-size: 1rem;
+
+      &:nth-child(3) {
+        color: #ffffff;
+        background: #2c68ff;
+      }
+    }
+
+    svg {
+      width: 12px;
+      height: 10px;
     }
   }
 `;
