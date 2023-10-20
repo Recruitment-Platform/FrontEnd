@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MainHeader from '@components/layout/MainHeader';
 import { ReactComponent as ShareIcon } from '@assets/icons/share-icon.svg';
 import { ReactComponent as LikeIcon } from '@assets/icons/like-icon.svg';
+import { ReactComponent as ReplyIcon } from '@assets/icons/reply-icon.svg';
 
 function Post() {
+  const [replyState, setReplyState] = useState(new Array(5).fill(false)); // 임시로 제작
+
   return (
     <PostLayout>
       <MainHeader />
@@ -50,6 +53,83 @@ function Post() {
               프로젝트 환경이 더 좋지 않다면, 없어도 괜찮아요.
             </pre>
           </Contents>
+          <ProfileBox_Mobile>
+            <div>
+              <NicknameBox>
+                <img src="/images/default-profile.jpg" />
+                <p>XOOYEON</p>
+              </NicknameBox>
+              <IntroductionBox>
+                <p>자기소개를 입력하는 영역입니다.</p>
+                <p>https://github.com/</p>
+              </IntroductionBox>
+            </div>
+            <Menu>
+              <button>
+                <ShareIcon />
+                공유
+              </button>
+              <button>
+                <LikeIcon />
+                20
+              </button>
+              <button>채팅하기</button>
+            </Menu>
+          </ProfileBox_Mobile>
+          <CommentSection>
+            <h3>댓글(1)</h3>
+            <input
+              type="text"
+              placeholder="이 모집에 대한 댓글을 남겨주세요."
+            />
+            {new Array(2).fill(0).map((_, index) => {
+              return (
+                <>
+                  <Comment key={index}>
+                    <Comment_Profile>
+                      <img src="/images/default-profile.jpg" />
+                      <div>
+                        <p>XOOYEON</p>
+                        <p>2023.09.20</p>
+                      </div>
+                    </Comment_Profile>
+                    <p>댓글입니다.</p>
+                    <button
+                      onClick={() => {
+                        const nReplyState = [...replyState];
+                        nReplyState[index] = !replyState[index];
+                        setReplyState(nReplyState);
+                      }}
+                    >
+                      답글 남기기
+                    </button>
+                  </Comment>
+                  {new Array(1).fill(0).map((_, index1) => {
+                    return (
+                      <ReplySection key={index1}>
+                        <ReplyIcon />
+                        <Reply>
+                          <Comment_Profile>
+                            <img src="/images/default-profile.jpg" />
+                            <div>
+                              <p>XOOYEON</p>
+                              <p>2023.09.20</p>
+                            </div>
+                          </Comment_Profile>
+                          <p>답글입니다.</p>
+                          <button>답글 남기기</button>
+                        </Reply>
+                      </ReplySection>
+                    );
+                  })}
+                  <ReplyInput $visible={replyState[index]}>
+                    <ReplyIcon />
+                    <input placeholder="답글을 남겨주세요" />
+                  </ReplyInput>
+                </>
+              );
+            })}
+          </CommentSection>
         </Main>
         <Aside>
           <ProfileBox>
@@ -81,48 +161,38 @@ function Post() {
   );
 }
 
-const Menu = styled.div`
+const PostLayout = styled.div`
+  /* max-width: 1440px; */
+  /* background-color: #d3d3d3; */
+  margin: 0 auto;
+`;
+
+const Container = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 6px;
-
-  & > button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    width: 84px;
-    height: 35px;
-    border-radius: 10px;
-    border: 1px solid #e6e6e6;
-    background: #ffffff;
-    color: #303030;
-    text-align: center;
-    font-family: Noto Sans KR;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-
-    &:nth-child(3) {
-      color: #ffffff;
-      background: #2c68ff;
-    }
-  }
-
-  & > svg {
-    width: 16px;
-    height: 16px;
-  }
+  /* width: 1150px; */
+  width: 1040px;
+  margin: 0 auto;
+  padding: 0px 60px;
+  padding-top: 71px;
+  gap: 28px;
 
   @media screen and (max-width: 1100px) {
-    flex-direction: column-reverse;
-    gap: 7px;
-    & > button:nth-child(1) {
-      display: none;
-    }
+    flex-direction: column;
+    width: 100%;
+    padding-top: 50px;
   }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 19px;
+    padding-top: 50px;
+  }
+`;
+
+const Main = styled.main`
+  width: 100%;
 `;
 
 const Header = styled.div`
@@ -206,32 +276,10 @@ const TitleBox = styled.div`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 1040px;
-  margin: 0 auto;
-  padding: 0px 60px;
-  padding-top: 71px;
-  gap: 28px;
-
-  @media screen and (max-width: 1100px) {
-    flex-direction: column;
-    width: 100%;
-    padding-top: 50px;
-  }
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
-    padding: 0 19px;
-    padding-top: 50px;
-  }
-`;
-
 const Tags = styled.div`
   display: flex;
   gap: 10px;
+
   & > button {
     display: flex;
     justify-content: center;
@@ -267,14 +315,148 @@ const Contents = styled.div`
     line-height: normal;
   }
 `;
-const PostLayout = styled.div`
-  /* max-width: 1440px; */
-  /* background-color: #d3d3d3; */
-  margin: 0 auto;
+
+const CommentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-top: 1px solid #e1e1e1;
+
+  & > h3 {
+    align-self: flex-start;
+    color: #303030;
+    font-family: Noto Sans KR;
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    padding: 11px 0 11px 8px;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid #e1e1e1;
+    background: #ffffff;
+    padding: 14px 20px;
+    color: #000000;
+
+    font-family: Noto Sans KR;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    &::placeholder {
+      color: #a9a9a9;
+    }
+    &::-moz-placeholder {
+      color: #a9a9a9;
+    }
+    &::-webkit-input-placeholder {
+      color: #a9a9a9;
+    }
+  }
 `;
 
-const Main = styled.main`
+const Comment = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 15px 8px;
+  border-bottom: 1px solid #e1e1e1;
   width: 100%;
+
+  // 댓글 내용
+  & > p {
+    color: #313131;
+    font-family: Noto Sans KR;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    padding: 10px 0 20px 0;
+  }
+
+  // 답글 남기기
+  & > button {
+    width: 63px;
+    background: none;
+    color: #a9a9a9;
+    font-family: Noto Sans KR;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+  }
+`;
+
+const Comment_Profile = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+
+  // 프로필 이미지
+  & > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
+  // 이름, 날짜
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    // 이름
+    & > p:first-child {
+      color: #222222;
+      font-family: Noto Sans KR;
+      font-size: 1.6rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    // 날짜
+    & > p:last-child {
+      color: #a9a9a9;
+      font-family: Noto Sans KR;
+      font-size: 1.3rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+`;
+
+const ReplySection = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* justify-content: flex-end; */
+  /* width: 95%; */
+  padding-left: 30px;
+  border-bottom: 1px solid #e1e1e1;
+
+  & > svg {
+    margin-top: 15px;
+  }
+`;
+
+const Reply = styled(Comment)`
+  border-bottom: none;
+`;
+
+const ReplyInput = styled.div<{ $visible: boolean }>`
+  display: ${(props) => (props.$visible ? 'flex' : 'none')};
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  padding-left: 30px;
+  padding: 15px 0px 15px 30px;
 `;
 
 const Aside = styled.aside`
@@ -295,6 +477,7 @@ const ProfileBox = styled.div`
   border-radius: 15px;
   border: 1px solid #e1e1e1;
   background: #fff;
+  margin-bottom: 17px;
 
   & > div:nth-child(1) {
     display: flex;
@@ -304,11 +487,21 @@ const ProfileBox = styled.div`
   }
 
   @media screen and (max-width: 1100px) {
+    display: none;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
 `;
+
+// 모바일 버전일 경우에 프로필 visible 상태
+const ProfileBox_Mobile = styled(ProfileBox)`
+  display: none;
+  @media screen and (max-width: 1100px) {
+    display: flex;
+  }
+`;
+
 const NicknameBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -334,6 +527,7 @@ const NicknameBox = styled.div`
     padding-bottom: 7px;
   }
 `;
+
 const IntroductionBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -363,4 +557,49 @@ const IntroductionBox = styled.div`
     padding-bottom: 0px;
   }
 `;
+
+const Menu = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+
+  & > button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 84px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid #e6e6e6;
+    background: #ffffff;
+    color: #303030;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    &:nth-child(3) {
+      color: #ffffff;
+      background: #2c68ff;
+    }
+  }
+
+  & > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column-reverse;
+    gap: 7px;
+    & > button:nth-child(1) {
+      display: none;
+    }
+  }
+`;
+
 export default Post;
