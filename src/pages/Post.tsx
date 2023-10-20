@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MainHeader from '@components/layout/MainHeader';
-import { ReactComponent as ShareIcon } from '@assets/icons/share-icon.svg';
 import { ReactComponent as LikeIcon } from '@assets/icons/like-icon.svg';
 import { ReactComponent as ReplyIcon } from '@assets/icons/reply-icon.svg';
 
@@ -65,10 +64,6 @@ function Post() {
               </IntroductionBox>
             </div>
             <Menu>
-              <button>
-                <ShareIcon />
-                공유
-              </button>
               <button>
                 <LikeIcon />
                 20
@@ -145,10 +140,6 @@ function Post() {
             </div>
             <Menu>
               <button>
-                <ShareIcon />
-                공유
-              </button>
-              <button>
                 <LikeIcon />
                 20
               </button>
@@ -168,8 +159,8 @@ const PostLayout = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  /* width: 1150px; */
-  width: 1040px;
+  width: 100%;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 0px 60px;
   padding-top: 71px;
@@ -526,12 +517,11 @@ const ProfileBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 20px 28px 26px 28px;
-  /* width: 320px; */
+  width: 320px;
   border-radius: 15px;
   border: 1px solid #e1e1e1;
   background: #fff;
   margin-bottom: 17px;
-  /* flex-wrap: wrap; */
 
   & > div:nth-child(1) {
     display: flex;
@@ -545,6 +535,7 @@ const ProfileBox = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 `;
 
@@ -653,7 +644,6 @@ const Menu = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
-  padding-left: 10px;
 
   & > button {
     display: flex;
@@ -674,7 +664,7 @@ const Menu = styled.div`
     font-weight: 700;
     line-height: normal;
 
-    &:nth-child(3) {
+    &:nth-child(2) {
       color: #ffffff;
       background: #2c68ff;
     }
@@ -688,21 +678,15 @@ const Menu = styled.div`
   @media screen and (max-width: 1100px) {
     flex-direction: column-reverse;
     gap: 7px;
-    & > button:nth-child(1) {
-      display: none;
-    }
   }
 
   @media screen and (max-width: 768px) {
+    padding-left: 10px;
+
     & > button {
       width: 60px;
       height: 25px;
       font-size: 1rem;
-
-      &:nth-child(3) {
-        color: #ffffff;
-        background: #2c68ff;
-      }
     }
 
     svg {
