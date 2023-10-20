@@ -3,6 +3,9 @@ import './App.css';
 import GlobalStyle from './styles/GlobalStyle';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Test from '@pages/test';
+import Login from '@pages/Login';
+import Redirect from '@pages/LoginRedirect';
+import InitialMyInformation from '@pages/InitialMyInformation';
 
 function App() {
   return (
@@ -11,6 +14,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Test />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/login/set" element={<InitialMyInformation />}></Route>
+
+          <Route path="/login/oauth2/token" element={<Redirect />}></Route>
         </Routes>
       </Router>
     </div>
