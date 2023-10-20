@@ -11,7 +11,7 @@ function Post() {
 
   return (
     <PostLayout>
-      <MainHeader />
+      <MainHeader logo={false} />
       <Container>
         <Main>
           <Header>
@@ -162,8 +162,6 @@ function Post() {
 }
 
 const PostLayout = styled.div`
-  /* max-width: 1440px; */
-  /* background-color: #d3d3d3; */
   margin: 0 auto;
 `;
 
@@ -187,7 +185,7 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     padding: 0 19px;
-    padding-top: 50px;
+    padding-top: 15px;
   }
 `;
 

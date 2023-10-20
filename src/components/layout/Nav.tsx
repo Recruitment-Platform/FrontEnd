@@ -6,14 +6,19 @@ import { ReactComponent as Vector } from '@assets/icons/vector.svg';
 import { ReactComponent as HamburgerBar } from '@assets/icons/hamburgerbar-icon.svg';
 import { ReactComponent as NoticeIcon } from '@assets/icons/notice-icon.svg';
 import { ReactComponent as NoticeNewIcon } from '@assets/icons/notice-new-icon.svg';
-function Nav() {
+
+interface MainHeaderProps {
+  logo?: boolean; // 로고 존재 여부
+}
+
+function Nav({ logo = true }: MainHeaderProps) {
   const [loginState, setLoginState] = useState(true); // 로그인 여부 - 테스트용
   const [myInfoVisible, setMyInfoVisible] = useState(false); // myInfo visible 상태
 
   const [isOpen, setIsOpen] = useState(false); //햄버거 바 클릭에 따른 사이드 바 상태
 
   return (
-    <NavbarLayout>
+    <NavbarLayout $visible={logo}>
       <Logo />
       <Navbar>
         <Links>
@@ -69,7 +74,7 @@ function Nav() {
   );
 }
 
-const NavbarLayout = styled.nav`
+const NavbarLayout = styled.nav<{ $visible: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -82,8 +87,13 @@ const NavbarLayout = styled.nav`
 
   @media screen and (max-width: 768px) {
     flex-direction: column-reverse;
-    height: 129px;
+    /* height: 129px; */
     padding: 0 20px;
+    height: ${(props) => (props.$visible ? '129px' : 'auto')};
+
+    & > svg {
+      display: ${(props) => (props.$visible ? 'block' : 'none')};
+    }
   }
 `;
 
