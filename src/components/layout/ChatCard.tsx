@@ -1,42 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import ChatMessage from './ChatMessage';
 
 interface ChatCardProps {
   key: number;
   profile?: string;
-  sender: string;
+  nickName: string;
   content: string;
   sentTime: string;
   unreadCount: number;
 }
 
 function ChatCard({
+  key,
   profile,
-  sender,
+  nickName,
   content,
   sentTime,
   unreadCount,
 }: ChatCardProps) {
+  const [isChatView, setChatView] = useState(false);
+  function ChatHandler() {
+    setChatView(true);
+  }
   return (
-    <ChatContentLayout>
-      <Profile src={profile} />
-      <SenderAndContent>
-        <Sender>{sender}</Sender>
-        <Content>{content} </Content>
-      </SenderAndContent>
-      <TimeAndUnread>
-        <SentTime>{sentTime}</SentTime>
-        <Count>
-          <p>{unreadCount}</p>
-        </Count>
-      </TimeAndUnread>
-    </ChatContentLayout>
+    <>
+      <ChatContentContainer onClick={ChatHandler}>
+        <ChatMessage
+          isChatView={isChatView}
+          profile={profile}
+          nickName={nickName}
+          roomId={key}
+        />
+        <Profile src={profile} />
+        <SenderAndContent>
+          <Sender>{nickName}</Sender>
+          <Content>{content} </Content>
+        </SenderAndContent>
+        <TimeAndUnread>
+          <SentTime>{sentTime}</SentTime>
+          <Count>
+            <p>{unreadCount}</p>
+          </Count>
+        </TimeAndUnread>
+      </ChatContentContainer>
+    </>
   );
 }
 
 export default ChatCard;
 
-const ChatContentLayout = styled.div`
+const ChatContentContainer = styled.div`
   background: rgba(255, 255, 255, 1);
   width: 260px;
   height: 70px;
@@ -46,7 +60,7 @@ const ChatContentLayout = styled.div`
   gap: 10px;
   justify-content: center;
   align-items: center;
-  &: hover {
+  &:hover {
     background: rgba(249, 249, 249, 1);
   }
 `;
@@ -75,14 +89,12 @@ const Sender = styled.span`
 const Content = styled.p`
   width: 147px;
   height: 27px;
-  //글자 넘어가면 말줄임표
   white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
   font-family: Noto Sans KR;
   font-size: 10px;
   font-weight: 400;
