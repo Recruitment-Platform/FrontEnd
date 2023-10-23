@@ -5,17 +5,19 @@ import Nav from './Nav';
 interface MainHeaderProps {
   backgroundColor?: string; // 헤더 배경화면 색
   shadow?: boolean; // 헤더 그림자 여부
+  logo?: boolean;
 }
 
 function MainHeader({
   backgroundColor = '#ffffff',
   shadow = true,
+  logo = true,
 }: MainHeaderProps) {
   return (
     <>
       <MainHeaderContainer $backgroundColor={backgroundColor} $shadow={shadow}>
-        <HeaderBox>
-          <Nav />
+        <HeaderBox $logo={logo}>
+          <Nav logo={logo} />
         </HeaderBox>
       </MainHeaderContainer>
     </>
@@ -32,7 +34,6 @@ const MainHeaderContainer = styled.header<{
   align-items: center;
   width: 100%;
   height: auto;
-  /* background: rgba(242, 244, 255, 1); */
   background: ${(props) => props.$backgroundColor};
   margin: 0 auto;
   box-shadow: ${(props) =>
@@ -43,13 +44,15 @@ const MainHeaderContainer = styled.header<{
   }
 `;
 
-const HeaderBox = styled.div`
+const HeaderBox = styled.div<{
+  $logo: boolean;
+}>`
   width: 100%;
   height: 115px;
   max-width: 1440px;
 
   @media screen and (max-width: 768px) {
-    height: 137px;
+    height: ${(props) => (props.$logo ? '145px' : '71px')};
   }
 `;
 
