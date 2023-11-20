@@ -1,26 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MainHeader from '@components/layout/MainHeader';
+import { signUp } from '@apis/api/user';
+import { useNavigate } from 'react-router-dom';
 
 function InitialMyInformation() {
-  // $visible은 닉네임이 중복이냐 주소가 유효하냐에 따라 설정되는 값
+  const navigate = useNavigate();
+  const [nickname, setNickname] = useState('');
+  const [githubLink, setGithub] = useState('');
+  const [errorMessageVisible, setErrorMessageVisible] = useState({
+    nicknameInfo: {
+      message: '',
+      visible: false,
+    },
+    addressInfo: {
+      message: '',
+      visible: false,
+    },
+  });
+
+  const onClickRegisterBtn = async () => {
+    const signUpResult = await signUp({
+      nickname,
+      githubLink,
+    });
+
+    // 회원가입 성공
+    if (signUpResult.status === 200) {
+      navigate('/', { replace: true });
+    }
+    if (signUpResult.status === 400) {
+      if (signUpResult.code === 'U2') {
+        // 중복된 닉네임일 경우
+        setErrorMessageVisible({
+          nicknameInfo: { message: signUpResult.error, visible: true },
+          addressInfo: { message: '', visible: false },
+        });
+      }
+      if (signUpResult.code === 'C1') {
+        if (signUpResult.error.length === 1) {
+          // 닉네임과 깃허브 주소 중 하나에 문제가 있는 경우
+          if (signUpResult.error[0].field === 'nickname') {
+            setErrorMessageVisible({
+              nicknameInfo: {
+                message: signUpResult.error[0].reason,
+                visible: true,
+              },
+              addressInfo: { message: '', visible: false },
+            });
+          }
+          if (signUpResult.error[0].field === 'githubLink') {
+            // 닉네임과 깃허브 주소 모두 문제가 있는 경우
+            setErrorMessageVisible({
+              addressInfo: {
+                message: signUpResult.error[0].reason,
+                visible: true,
+              },
+              nicknameInfo: { message: '', visible: false },
+            });
+          }
+        } else {
+          setErrorMessageVisible({
+            nicknameInfo: {
+              message: signUpResult.error[0].reason,
+              visible: true,
+            },
+            addressInfo: {
+              message: signUpResult.error[1].reason,
+              visible: true,
+            },
+          });
+        }
+      }
+    }
+  };
+
   return (
     <InitialMyInformationLayout>
       <MainHeader />
       <Main>
-        <NicknameBox $visible={true}>
-          <input placeholder="닉네임을 입력해주세요. (필수)" />
+        <NicknameBox $visible={errorMessageVisible.nicknameInfo.visible}>
+          <input
+            onChange={(e) => {
+              setNickname(e.target.value);
+            }}
+            placeholder="닉네임을 입력해주세요. (필수)"
+          />
           <p>
-            <span>i</span>중복된 닉네임입니다.
+            <span>i</span>
+            {errorMessageVisible.nicknameInfo.message}
           </p>
         </NicknameBox>
-        <GithubBox $visible={true}>
-          <input placeholder="깃허브 주소를 입력해주세요. (선택)" />
+        <GithubBox $visible={errorMessageVisible.addressInfo.visible}>
+          <input
+            onChange={(e) => {
+              setGithub(e.target.value);
+            }}
+            placeholder="깃허브 주소를 입력해주세요. (선택)"
+          />
           <p>
-            <span>i</span>유효한 주소가 아닙니다.
+            <span>i</span>
+            {errorMessageVisible.addressInfo.message}
           </p>
         </GithubBox>
-        <RegisterBtn>가입하기</RegisterBtn>
+        <RegisterBtn onClick={onClickRegisterBtn}>가입하기</RegisterBtn>
       </Main>
     </InitialMyInformationLayout>
   );
