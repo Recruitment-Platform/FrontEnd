@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import GlobalStyle from './styles/GlobalStyle';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Test from '@pages/test';
+import Home from '@pages/Home';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path="/" element={<Test />}></Route>
+          <Route path="/" element={<Home />}></Route>
         </Routes>
       </Router>
     </div>
