@@ -13,19 +13,35 @@ interface StudyCardProps {
 function StudyCard({ date, mode, title, content, tags }: StudyCardProps) {
   return (
     <StudyCardLayout>
-      <DateAndMode>
-        <Date>{date}</Date>
-        <Mode>{mode}</Mode>
-      </DateAndMode>
-      <Contents>
-        <Title>{title}</Title>
-        <Content>{content}</Content>
-      </Contents>
-      <Tags>
-        {tags.map((tag) => {
-          return <TechTag key={tag} name={tag} />;
-        })}
-      </Tags>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 500 280"
+        preserveAspectRatio="xMinYMin meet"
+      >
+        <foreignObject
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/1999/xhtml"
+        >
+          <CardBox>
+            <DateAndMode>
+              <Date>{date}</Date>
+              <Mode>{mode}</Mode>
+            </DateAndMode>
+            <Contents>
+              <Title>{title}</Title>
+              <Content>{content}</Content>
+            </Contents>
+            <Tags $visible={Boolean(tags.length - 3)}>
+              {tags.map((tag) => {
+                return <TechTag key={tag} name={tag} />;
+              })}
+              <p>+{tags.length - 3}</p>
+            </Tags>
+          </CardBox>
+        </foreignObject>
+      </svg>
     </StudyCardLayout>
   );
 }
@@ -33,21 +49,21 @@ function StudyCard({ date, mode, title, content, tags }: StudyCardProps) {
 const StudyCardLayout = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px; /*추가한 코드*/
   align-items: flex-start;
-  width: 500px;
-  /* height: 280px; */
   border-radius: 15px;
   border: 1px solid #e1e1e1;
   background: #ffffff;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.05);
-  padding: 35px;
-  @media screen and (max-width: 768px) {
-    width: 340px;
-  }
-  @media screen and (max-width: 390px) {
-    width: 250px;
-  }
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+`;
+
+const CardBox = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 36px 35px;
+  position: relative;
 `;
 
 const DateAndMode = styled.div`
@@ -64,9 +80,6 @@ const Date = styled.span`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  @media screen and (max-width: 768px) {
-    font-size: 13px;
-  }
 `;
 
 const Mode = styled.span`
@@ -79,6 +92,10 @@ const Mode = styled.span`
   font-weight: 700;
   line-height: normal;
   padding: 2px 5px;
+
+  @media screen and (max-width: 768px) {
+    padding: 2px 12px;
+  }
 `;
 
 const Contents = styled.div`
@@ -89,6 +106,10 @@ const Contents = styled.div`
   padding-top: 16px;
   padding-bottom: 23px;
   gap: 2px;
+
+  @media screen and (max-width: 768px) {
+    gap: 7px;
+  }
 `;
 
 const Title = styled.h3`
@@ -97,29 +118,61 @@ const Title = styled.h3`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  @media screen and (max-width: 768px) {
-    font-size: 15px;
-  }
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  width: 100%;
 `;
 
 const Content = styled.p`
   color: #8a8a8a;
   font-family: Noto Sans KR;
-  font-size: 1.6rem;
+  font-size: 1.6em;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-align: left;
+  width: 100%;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
   @media screen and (max-width: 768px) {
-    font-size: 13px;
+    -webkit-line-clamp: 2;
   }
 `;
 
-const Tags = styled.div`
+const Tags = styled.div<{ $visible: boolean }>`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
+  position: absolute;
+  bottom: 35px;
+
+  & > button:nth-child(n + 4) {
+    // 4번째부터 적용
+    display: none;
+  }
+
+  & > p {
+    display: ${(props) => (props.$visible ? 'block' : 'none')};
+    color: #8a8a8a;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 70%;
+    flex-wrap: wrap;
+  }
 `;
 
 export default StudyCard;
