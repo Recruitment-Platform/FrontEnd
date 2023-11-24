@@ -79,7 +79,7 @@ function ChatList() {
           <ChatCard
             key={item.key}
             profile={item.profile}
-            sender={item.sender}
+            nickName={item.sender}
             content={item.content}
             sentTime={item.sentTime}
             unreadCount={item.unreadCount}
