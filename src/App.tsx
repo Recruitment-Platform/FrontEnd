@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import GlobalStyle from './styles/GlobalStyle';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Test from '@pages/test';
+import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Redirect from '@pages/LoginRedirect';
 import InitialMyInformation from '@pages/InitialMyInformation';
@@ -13,7 +13,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path="/" element={<Test />}></Route>
+          <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/login/set" element={<InitialMyInformation />}></Route>
 
