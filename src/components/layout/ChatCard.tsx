@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ChatMessage from './ChatMessage';
 
 interface ChatCardProps {
+  setIsEnter : React.Dispatch<React.SetStateAction<boolean>>;
   key: number;
   profile?: string;
   nickName: string;
@@ -12,6 +13,7 @@ interface ChatCardProps {
 }
 
 function ChatCard({
+  setIsEnter,
   key,
   profile,
   nickName,
@@ -22,16 +24,11 @@ function ChatCard({
   const [isChatView, setChatView] = useState(false);
   function ChatHandler() {
     setChatView(true);
+    setIsEnter(true);
   }
   return (
     <>
-      <ChatContentContainer onClick={ChatHandler}>
-        <ChatMessage
-          isChatView={isChatView}
-          profile={profile}
-          nickName={nickName}
-          roomId={key}
-        />
+        <ChatContentContainer onClick = { ChatHandler} >
         <Profile src={profile} />
         <SenderAndContent>
           <Sender>{nickName}</Sender>
@@ -44,6 +41,13 @@ function ChatCard({
           </Count>
         </TimeAndUnread>
       </ChatContentContainer>
+      <ChatMessage
+      setChatView ={setChatView}
+          isChatView={isChatView}
+          profile={profile}
+          nickName={nickName}
+          roomId={key}
+        />
     </>
   );
 }
@@ -69,6 +73,8 @@ const Profile = styled.img`
   height: 40px;
   border-radius: 15px;
   background: #eeeeee;
+  display: flex;
+  border: none;
 `;
 const SenderAndContent = styled.div`
   width: 147px;
@@ -110,7 +116,7 @@ const TimeAndUnread = styled.li`
   flex-direction: column;
 `;
 const SentTime = styled.span`
-  font-family: Inter;
+  font-family: Noto Sans KR;
   font-size: 9px;
   font-weight: 400;
   line-height: 11px;
@@ -131,5 +137,6 @@ const Count = styled.div`
     font-weight: 700;
     line-height: 12px;
     letter-spacing: 0em;
+    font-family: Noto Sans KR;
   }
 `;

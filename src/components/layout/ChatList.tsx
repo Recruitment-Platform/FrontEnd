@@ -1,9 +1,9 @@
-import React from 'react';
+import React ,{useState } from 'react';
 import styled from 'styled-components';
 import ChatCard from './ChatCard';
 const ChatItem = [
   {
-    profile: '../profile.jpg',
+    profile: '/images/default-profile.jpg',
     sender: '뉴비 디자이너',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행하시는 걸로 알고있는데 맞을까요?',
@@ -11,7 +11,7 @@ const ChatItem = [
     unreadCount: 1,
   },
   {
-    profile: '../profile.jpg',
+    profile:  '/images/default-profile.jpg',
     sender: '닉네임',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
@@ -19,7 +19,7 @@ const ChatItem = [
     unreadCount: 2000,
   },
   {
-    profile: '../profile.jpg',
+    profile: ' /images/default-profile.jpg',
     sender: '닉네임',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
@@ -27,7 +27,7 @@ const ChatItem = [
     unreadCount: 30,
   },
   {
-    profile: '../profile.jpg',
+    profile: '/images/default-profile.jpg',
     sender: '닉네임',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
@@ -35,7 +35,7 @@ const ChatItem = [
     unreadCount: 30,
   },
   {
-    profile: '../profile.jpg',
+    profile: '/images/default-profile.jpg',
     sender: '닉네임',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
@@ -43,23 +43,7 @@ const ChatItem = [
     unreadCount: 30,
   },
   {
-    profile: '../profile.jpg',
-    sender: '닉네임',
-    content:
-      '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
-    sentTime: '오전 10:27',
-    unreadCount: 30,
-  },
-  {
-    profile: '../profile.jpg',
-    sender: '닉네임',
-    content:
-      '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
-    sentTime: '오전 10:27',
-    unreadCount: 30,
-  },
-  {
-    profile: '../profile.jpg',
+    profile:  '/images/default-profile.jpg',
     sender: '닉네임',
     content:
       '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행...',
@@ -69,14 +53,16 @@ const ChatItem = [
 ];
 
 function ChatList() {
+  const [isEnter, setIsEnter] = useState(false);
   return (
     <ChatCardLayout>
       <ChatTitle>
         <p>채팅목록</p>
-      </ChatTitle>
-      <ChatContainer>
+      </ChatTitle>      
+      <ChatContainer isEnter = {isEnter}>
         {ChatItem.map((item: any) => (
           <ChatCard
+            setIsEnter = {setIsEnter}
             key={item.key}
             profile={item.profile}
             nickName={item.sender}
@@ -94,6 +80,7 @@ export default ChatList;
 
 const ChatCardLayout = styled.div`
   position: fixed;
+  display: 'flex';
   /* margin-bottom: 35px;*/
   bottom: 19%;
   right: 4%;
@@ -121,7 +108,7 @@ const ChatTitle = styled.div`
   }
 `;
 
-const ChatContainer = styled.div`
+const ChatContainer = styled.div<{isEnter: boolean}>`
   display: flex;
   height: 320px;
   width: 300px;
@@ -137,5 +124,6 @@ const ChatContainer = styled.div`
     background: rgba(217, 217, 217, 1);
     border-radius: 15px;
     width: 5px;
+    display : ${props => props.isEnter ?  'none' : 'flex'}
   }
 `;

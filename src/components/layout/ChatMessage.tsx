@@ -2,101 +2,95 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BackToChatList } from '@assets/icons/back-icon.svg';
 interface ChatViewProps {
+  setChatView : React.Dispatch<React.SetStateAction<boolean>>;
   isChatView: boolean;
   roomId: number;
   profile?: string;
   nickName: string;
 }
 
-const MESSAGE = [
-  {
-    isSender: true,
-    isprevSender: false,
-    isLastMessage: false,
-    messages:
-      '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행하시는 걸로 알고있는데 맞을까요?',
-  },
-  {
-    isSender: false,
-    isprevSender: false,
-    isLastMessage: false,
-    messages:
-      '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
-  },
-  {
-    isSender: true,
-    isprevSender: false,
-    isLastMessage: false,
-    messages: '텍스트텍스트텍스트',
-  },
-  {
-    isSender: true,
-    isprevSender: true,
-    isLastMessage: false,
-    messages: '텍스트텍스트텍스트',
-  },
-  {
-    isSender: true,
-    isprevSender: true,
-    isLastMessage: false,
-    messages:
-      '텍스트텍스트텍스트 텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트',
-  },
-  {
-    isSender: true,
-    isprevSender: true,
-    isLastMessage: false,
-    messages: '텍스트텍스트텍스트',
-  },
-  {
-    isSender: false,
-    isprevSender: false,
-    isLastMessage: true,
-    messages: '텍스트텍스트텍스트',
-  },
-];
-function ChatMessage({ isChatView, profile, nickName }: ChatViewProps) {
-
-  function ChatViewHandler() {
-    //...
+function ChatMessage({ setChatView, isChatView, profile, nickName }: ChatViewProps) {
+  const [messages, SetMessages] = useState([
+    {
+      id : 1,
+      name: nickName,
+      message : '안녕하세요! 디자인 스터디그룹건으로 연락드립니다. 오프라인 진행하시는 걸로 알고있는데 맞을까요?',
+    }, 
+    {
+      id : 2,
+      name : nickName,
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+    {
+      id : 3,
+      name : 'me',
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+    {
+      id : 4,
+      name : nickName,
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+    {
+      id : 5,
+      name : nickName,
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+    {
+      id : 6,
+      name : nickName,
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+    {
+      id : 7,
+      name : nickName,
+      message :  '안녕하세요 반갑습니다! 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트 텍스트',
+    },
+  ]);
+  const ChatViewHandler= () => {
+      setChatView(false)
   }
   return (
     <>
       {isChatView && (
         <ChatViewLayout>
           <ChatTitle>
-            <BackToChatList onClick={ChatViewHandler} />
+            <BackToChatList onClick = {
+              ChatViewHandler}/>
             <p>{nickName}</p>
           </ChatTitle>
           <MessageList>
-            {MESSAGE.map((key: any) => {
+            {messages.map((message, index) => {
               return (
                 <div>
-                  {key.isSender === true ? (
+                    {message.name === '닉네임' ? (
                     <SenderMessage>
                       <Image>
-                        {!key.isprevSender && <img src={profile} />}
+                        {index === 0 && <img src={profile} /> }
+                        {index > 0 && messages[index-1].name !== message.name &&  <img src={profile} /> }
                       </Image>
                       <div>
-                        {!key.isprevSender && <p>{nickName}</p>}
+                        {index === 0 && <p>{nickName}</p>}
+                        { index > 0 && messages[index -1].name !== message.name &&  <p>{nickName}</p>}
                         <div>
-                          <p>{key.messages}</p>
+                            <p>{message.message}</p>
                         </div>
                       </div>
-                    </SenderMessage>
-                  ) : (
+                    </SenderMessage>) :
+                    (
                     <MyMessage>
                       <div>
-                        <p>{key.messages}</p>
+                            <p>{message.message}</p>
                       </div>
                     </MyMessage>
-                  )}
+                    )
+                  }
                 </div>
               );
             })}
           </MessageList>
           <MessageInputLayout>
-            <input type="text" placeholder="텍스트" />
+            <input type="text" placeholder="텍스트 입력" />
             <button>
               <p>전송</p>
             </button>
@@ -114,6 +108,7 @@ const SenderMessage = styled.div`
   flex-wrap: wrap;
   div {
     & > p {
+      margin: 2px 0px;
       font-family: Noto Sans KR;
       font-size: 10px;
       font-weight: 500;
@@ -144,8 +139,9 @@ const SenderMessage = styled.div`
   }
 `;
 const Image = styled.div`
-  margin: 0px 10px;
+  margin: 2px 10px;
   border-radius: 15px;
+  border: none;
   width: 40px;
   height: 40px;
 `;
@@ -163,6 +159,7 @@ const MyMessage = styled.div`
     height: auto;
     border-radius: 10px;
     padding: 5px 10px;
+    background: #F9F9F9;
     p {
       margin: 0px;
       display: inlin-flex;
@@ -210,8 +207,11 @@ const ChatTitle = styled.div`
 const MessageList = styled.div`
   width: 300px;
   height: 300px;
+  display: flex;
+  flex-direction: column-reverse;
   overflow: scroll;
   overflow-y: auto;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 5px;
     height: 20px;
